@@ -1,12 +1,14 @@
 var population;
+var populationSize = 20;
 var target;
-var lifespan = 200;
-var count = 0;
+var lifespan = 300;
+var moveCount = 0;
+var generationCount = 1;
 var boat;
 
 function setup() {
   createCanvas(750,500);
-  population = new Population(20);
+  population = new Population(populationSize);
   target = createVector(50, 250, 25);
 }
 
@@ -15,13 +17,20 @@ function draw() {
 
   population.run();
 
-  count++;
-  if (count == lifespan) {
+  moveCount++;
+  if (moveCount == lifespan) {
     population.evaluateGeneration();
     population.createGeneration();
-    count = 0;
+    moveCount = 0;
+    generationCount++;
   }
 
   fill(255, 0, 0);
   ellipse(target.x, target.y, 20);
+
+  fill(255);
+  textSize(14);
+  text('Move: ' + (moveCount + 1), 0, 484);
+  text('Generation: ' + generationCount, 0, 499);
+
 }

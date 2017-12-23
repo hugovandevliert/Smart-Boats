@@ -1,5 +1,5 @@
 function Boat(dna) {
-  this.pos = createVector(725, height / 2);
+  this.pos = createVector(width - 25, height / 2);
   this.vel = createVector();
   this.acc = createVector();
   this.completed = false;
@@ -13,8 +13,7 @@ function Boat(dna) {
 
   this.calcFitness = function() {
     var d = dist(this.pos.x, this.pos.y, target.x, target.y);
-
-    this.fitness = map(d, 0, width, width, 0);
+    this.fitness = width - d;
 
     if (this.completed) {
      this.fitness *= 10;
@@ -31,20 +30,21 @@ function Boat(dna) {
   this.update = function() {
     var d = dist(this.pos.x, this.pos.y, target.x, target.y);
 
-    if (d < 5) {
+    if (d < 20) {
       this.completed = true;
       this.pos = target.copy();
     }
 
-    if (this.pos.x > width || this.pos.x < 0) {
+    if (this.pos.x + 20 > width || this.pos.x < 0) {
       this.crashed = true;
     }
-    if (this.pos.y > height || this.pos.y < 0) {
+    if (this.pos.y + 5 > height || this.pos.y < 0) {
       this.crashed = true;
     }
 
+    this.applyForce(this.dna.genes[moveCount]);
+
     if (!this.completed && !this.crashed) {
-      this.applyForce(this.dna.genes[count]);
       this.vel.add(this.acc);
       this.pos.add(this.vel);
       this.acc.mult(0);
@@ -56,10 +56,12 @@ function Boat(dna) {
     push();
     noStroke();
     fill(255);
+    translate(this.pos.x, this.pos.y);
     rotate(this.vel.heading());
-    triangle(this.pos.x, this.pos.y, this.pos.x + 5, this.pos.y + 5, this.pos.x + 5, this.pos.y - 5);
-    rect(this.pos.x + 5, this.pos.y - 5, 10, 10);
-    triangle(this.pos.x + 20, this.pos.y, this.pos.x + 15, this.pos.y + 5, this.pos.x + 15, this.pos.y - 5);
+    triangle(-5, -5, -5, 5, -10, 0);
+    rectMode(CENTER);
+    rect(0, 0, 10, 10);
+    triangle(5, -5, 5, 5, 10, 0);
     pop();
   }
 }
