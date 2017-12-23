@@ -30,7 +30,7 @@ function Boat(dna) {
   this.update = function() {
     var d = dist(this.pos.x, this.pos.y, target.x, target.y);
 
-    if (d < 10) {
+    if (d < 25) {
       this.completed = true;
     }
 
@@ -39,6 +39,12 @@ function Boat(dna) {
     }
     if (this.pos.y > height || this.pos.y < 0) {
       this.crashed = true;
+    }
+
+    for (var i = 0; i < nrOfObstacles; i++) {
+      if (obstacles[i].collision(this) == true) {
+        this.crashed = true;
+      }
     }
 
     this.applyForce(this.dna.genes[moveCount]);

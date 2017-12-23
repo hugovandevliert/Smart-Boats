@@ -1,15 +1,20 @@
 var population;
 var populationSize = 20;
 var target;
-var lifespan = 350;
+var lifespan = 500;
 var moveCount = 0;
 var generationCount = 1;
-var boat;
+var obstacles = [];
+var nrOfObstacles = 5;
 
 function setup() {
   createCanvas(750,500);
   population = new Population(populationSize);
   target = createVector(50, 250, 25);
+
+  for (var i = 0; i < nrOfObstacles; i++) {
+    obstacles[i] = new Obstacle(random(100, 500), random(50, 450), random(50, 100), random(50, 100));
+  }
 }
 
 function draw() {
@@ -26,7 +31,13 @@ function draw() {
   }
 
   fill(255, 0, 0);
-  ellipse(target.x, target.y, 20);
+  ellipse(target.x, target.y, 50);
+
+  fill(100);
+  noStroke();
+  for (var i = 0; i < nrOfObstacles; i++) {
+    rect(obstacles[i].x, obstacles[i].y, obstacles[i].w, obstacles[i].h);
+  }
 
   fill(255);
   textSize(14);

@@ -21,7 +21,7 @@ function Population(size) {
       this.boats[i].fitness /= maxfit;
     }
 
-    console.log(maxfit);
+    console.log(floor(maxfit));
 
     this.matingpool = [];
 
