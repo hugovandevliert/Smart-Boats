@@ -1,7 +1,7 @@
 var population;
 var populationSize = 20;
 var target;
-var lifespan = 300;
+var lifespan = 350;
 var moveCount = 0;
 var generationCount = 1;
 var boat;

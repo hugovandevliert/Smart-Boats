@@ -13,13 +13,13 @@ function Boat(dna) {
 
   this.calcFitness = function() {
     var d = dist(this.pos.x, this.pos.y, target.x, target.y);
-    this.fitness = width - d;
+    this.fitness = map(width - d, 0, width, 0, 100);
 
     if (this.completed) {
-     this.fitness *= 10;
+      this.fitness *= 5;
     }
     if (this.crashed) {
-      this.fitness /= 10;
+      this.fitness -= 25;
     }
   }
 
@@ -30,15 +30,14 @@ function Boat(dna) {
   this.update = function() {
     var d = dist(this.pos.x, this.pos.y, target.x, target.y);
 
-    if (d < 20) {
+    if (d < 10) {
       this.completed = true;
-      this.pos = target.copy();
     }
 
-    if (this.pos.x + 20 > width || this.pos.x < 0) {
+    if (this.pos.x > width || this.pos.x < 0) {
       this.crashed = true;
     }
-    if (this.pos.y + 5 > height || this.pos.y < 0) {
+    if (this.pos.y > height || this.pos.y < 0) {
       this.crashed = true;
     }
 
