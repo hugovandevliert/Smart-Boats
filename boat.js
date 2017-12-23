@@ -3,6 +3,7 @@ function Boat(dna) {
   this.vel = createVector();
   this.acc = createVector();
   this.completed = false;
+  this.completedFactor = 5;
   this.crashed = false;
   this.fitness = 0;
   if (dna) {
@@ -16,7 +17,7 @@ function Boat(dna) {
     this.fitness = map(width - d, 0, width, 0, 100);
 
     if (this.completed) {
-      this.fitness *= 5;
+      this.fitness *= this.completedFactor;
     }
     if (this.crashed) {
       this.fitness -= 25;
@@ -30,8 +31,9 @@ function Boat(dna) {
   this.update = function() {
     var d = dist(this.pos.x, this.pos.y, target.x, target.y);
 
-    if (d < 25) {
+    if (d < 25 && this.completed == false) {
       this.completed = true;
+      this.completedFactor = map(lifespan - moveCount, 0, lifespan, 5, 6);
     }
 
     if (this.pos.x > width || this.pos.x < 0) {
