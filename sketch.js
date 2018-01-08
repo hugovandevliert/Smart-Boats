@@ -18,7 +18,7 @@ function setup() {
 }
 
 function draw() {
-  background(0);
+  background(64, 164, 223);
 
   population.run();
 
@@ -30,10 +30,10 @@ function draw() {
     generationCount++;
   }
 
-  fill(255, 0, 0);
+  fill(0, 255, 0);
   ellipse(target.x, target.y, 50);
 
-  fill(100);
+  fill(236, 199, 147);
   noStroke();
   for (var i = 0; i < nrOfObstacles; i++) {
     rect(obstacles[i].x, obstacles[i].y, obstacles[i].w, obstacles[i].h);
